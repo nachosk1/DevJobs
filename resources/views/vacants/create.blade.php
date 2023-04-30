@@ -7,9 +7,12 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg md:mx-0 mx-2">
                 <div class="p-6 text-gray-900">
-                    Formulario Aqui
+                    <h1 class="text-2xl font-bold text-center my-4">Publicar Vacantes</h1>
+                    <div class="md:flex md:justify-center p-3">
+                        <livewire:create-vacant />
+                    </div>
                 </div>
             </div>
         </div>
