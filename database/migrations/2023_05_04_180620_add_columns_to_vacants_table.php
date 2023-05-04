@@ -11,8 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('vancants', function (Blueprint $table) {
-            $table->id();
+        Schema::table('vacants', function (Blueprint $table) {
             $table->string('title');
             $table->foreignId('salary_id')->constrained()->onDelete('cascade');
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
@@ -22,7 +21,6 @@ return new class extends Migration
             $table->string('image');
             $table->integer('public')->default(1);
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->timestamps();
         });
     }
 
@@ -31,12 +29,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('cavants', function (Blueprint $table){
+        Schema::table('vacants', function (Blueprint $table) {
             $table->dropForeign('vancants_salary_id_foreign');
             $table->dropForeign('vancants_category_id_foreign');
             $table->dropForeign('vancants_user_id_foreign');
         });
-        Schema::dropIfExists('vancants');
-        
     }
 };

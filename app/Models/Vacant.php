@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Vacant extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'salary_id',
+        'category_id',
+        'company',
+        'last_date',
+        'description',
+        'image',
+        'user_id'
+    ];
 }

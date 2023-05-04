@@ -20,7 +20,7 @@ class CreateVacant extends Component
     public $image;
 
     use WithFileUploads;
-    
+
 
     protected $rules = [
         'title' => 'required|string|',
@@ -32,7 +32,8 @@ class CreateVacant extends Component
         'image' => 'required|image|max:1024',
     ];
 
-    public function createVacant(){
+    public function createVacant()
+    {
         $data = $this->validate();
 
         // almacenar imagen
@@ -42,14 +43,23 @@ class CreateVacant extends Component
 
         // Crear la Vacante
         Vacant::create([
-            
+            'title' => $data['title'],
+            'salary_id' => $data['salary'],
+            'category_id' => $data['category'],
+            'company' => $data['company'],
+            'last_date' => $data['last_date'],
+            'description' => $data['description'],
+            'image' => $name_image,
+            'user_id' => auth()->user()->id,
         ]);
         // Crear un mensaje
-
+        session()->flash('message', 'La Vacante se publicó correctamente');
         // Rediccionar al usuario
+        return redirect()->route('vacants.index');
     }
 
-    public function render() {
+    public function render()
+    {
         //Consultar DB
         $salaries = Salary::all();
         $categories = Category::all();
