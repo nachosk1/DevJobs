@@ -34,9 +34,11 @@ class VacantController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Vacant $vacant)
     {
-        //
+        return view('vacants.show', [
+            'vacant' => $vacant
+        ]);
     }
 
     /**

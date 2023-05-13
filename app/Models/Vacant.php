@@ -21,4 +21,11 @@ class Vacant extends Model
         'image',
         'user_id'
     ];
+
+    public function category(){
+        return $this->belongsTo(Category::class);
+    }
+    public function salary(){
+        return $this->belongsTo(Salary::class);
+    }
 }
