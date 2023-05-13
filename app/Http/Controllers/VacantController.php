@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vacant;
 use Illuminate\Http\Request;
 
 class VacantController extends Controller
@@ -41,9 +42,11 @@ class VacantController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Vacant $vacant)
     {
-        //
+        return view('vacants.edit', [
+            'vacant' => $vacant
+        ]);
     }
 
     /**

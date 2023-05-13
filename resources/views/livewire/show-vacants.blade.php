@@ -14,7 +14,7 @@
                         class="bg-slate-800 text-center py-2 px-4 rounded-lg text-white text-xs font-bold uppercase">
                         Ver candidatos
                     </a>
-                    <a href=""
+                    <a href="{{route('vacants.edit', $v->id)}}"
                         class="bg-blue-800 text-center py-2 px-4 rounded-lg text-white text-xs font-bold uppercase">
                         Editar
                     </a>
