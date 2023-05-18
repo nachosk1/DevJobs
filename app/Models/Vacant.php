@@ -28,4 +28,7 @@ class Vacant extends Model
     public function salary(){
         return $this->belongsTo(Salary::class);
     }
+    public function candidates(){
+        return $this->hasMany(Candidate::class);
+    }
 }

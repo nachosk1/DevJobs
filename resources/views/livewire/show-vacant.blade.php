@@ -27,6 +27,7 @@
             <p>{{ $vacant->description }}</p>
         </div>
     </div>
+
     @guest
         <div class="mt-5 bg-gray-50 border border-dashed p-5 text-center">
             <p>
@@ -35,5 +36,10 @@
             </p>
         </div>
     @endguest
+
+    @cannot('create', App\Models\Vacant::class)
+        <livewire:postulate-vacant :vacant="$vacant"/>
+    @endcannot
+    
 
 </div>
