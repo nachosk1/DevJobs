@@ -11,15 +11,17 @@
                 </div>
 
                 @auth
-                    <!-- Navigation Links -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('vacants.index')" :active="request()->routeIs('vacants.index')">
-                            {{ __('Mis Vacantes') }}
-                        </x-nav-link>
-                        <x-nav-link :href="route('vacants.create')" :active="request()->routeIs('vacants.create')">
-                            {{ __('Crear Vacante') }}
-                        </x-nav-link>
-                    </div>
+                    @can('create', App\Models\Vacant::class)<!-- Si el usuario puede crear vacante puede crear vacantes y ver vacantes-->
+                        <!-- Navigation Links -->
+                        <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                            <x-nav-link :href="route('vacants.index')" :active="request()->routeIs('vacants.index')">
+                                {{ __('Mis Vacantes') }}
+                            </x-nav-link>
+                            <x-nav-link :href="route('vacants.create')" :active="request()->routeIs('vacants.create')">
+                                {{ __('Crear Vacante') }}
+                            </x-nav-link>
+                        </div>
+                    @endcan
                 @endauth
 
 
@@ -28,6 +30,13 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 @auth
+                    @can('create', App\Models\Vacant::class)
+                        <a class="mr-2 w-7 h-7 bg-green-500 hover:bg-black hover:text-white rounded-full flex flex-col justify-center items-center text-sm font-extrabold text-black"
+                            href="{{ route('notifications') }}">
+                            {{ auth()->user()->unreadNotifications->count() }}
+                        </a>
+                    @endcan
+
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button
@@ -102,6 +111,21 @@
                 <x-responsive-nav-link :href="route('vacants.create')" :active="request()->routeIs('vacants.create')">
                     {{ __('Crear Vacantes') }}
                 </x-responsive-nav-link>
+                @if (auth()->user()->rol === 2)
+                    <div class="flex gap-2 items-center p-3">
+                        <a class="w-7 h-7 bg-green-500 hover:bg-black hover:text-white rounded-full flex flex-col justify-center items-center text-sm font-extrabold text-black"
+                            href="{{ route('notifications') }}">
+                            {{ auth()->user()->unreadNotifications->count() }}
+                        </a>
+                        <p class="text-base font-medium text-gray-600">
+                            @choice(
+                                'Notificación|Notificationes',
+                                auth()->user()->unreadNotifications->count()
+                            )
+                        </p>
+                    </div>
+                @endif
+
             </div>
 
             <!-- Responsive Settings Options -->
