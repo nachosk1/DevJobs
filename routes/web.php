@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CandidateController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VacantController;
@@ -24,6 +25,7 @@ Route::get('/dashboard', [VacantController::class, 'index'])->middleware(['auth'
 Route::get('/vacants/create', [VacantController::class, 'create'])->middleware(['auth', 'verified'])->name('vacants.create');
 Route::get('/vacants/{vacant}/edit', [VacantController::class, 'edit'])->middleware(['auth', 'verified'])->name('vacants.edit');
 Route::get('/vacants/{vacant}', [VacantController::class, 'show'])->name('vacants.show');
+Route::get('/candidates/{vacant}', [CandidateController::class, 'index'])->name('candidate.index');
 
 // Notification
 Route::get('/notification', NotificationController::class)->middleware(['auth', 'verified', 'rol.recruiter'])->name('notifications');

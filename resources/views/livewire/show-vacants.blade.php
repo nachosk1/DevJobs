@@ -10,9 +10,10 @@
                     <p class="text-sm text-gray-500">Último día: {{ $v->last_date->format('d/m/Y') }}</p>
                 </div>
                 <div class="flex flex-col md:flex-row gap-3 items-stretch mt-5 md:mt-0">
-                    <a href=""
-                        class="bg-slate-800 text-center py-2 px-4 rounded-lg text-white text-xs font-bold uppercase">
-                        Ver candidatos
+                    <a href="{{route('candidate.index', $v)}}"
+                        class="bg-green-500 text-center py-2 px-4 rounded-lg text-white text-xs font-bold uppercase">
+                        {{$v->candidates->count()}}
+                        candidatos
                     </a>
                     <a href="{{ route('vacants.edit', $v->id) }}"
                         class="bg-blue-800 text-center py-2 px-4 rounded-lg text-white text-xs font-bold uppercase">

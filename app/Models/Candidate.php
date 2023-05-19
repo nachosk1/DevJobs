@@ -14,4 +14,8 @@ class Candidate extends Model
         'vacant',
         'cv'
     ];
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }
