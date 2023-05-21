@@ -2,11 +2,12 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Category;
 use App\Models\Salary;
 use App\Models\Vacant;
 use Livewire\Component;
+use App\Models\Category;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Validator;
 
 class CreateVacant extends Component
 {
@@ -22,6 +23,7 @@ class CreateVacant extends Component
     use WithFileUploads;
 
 
+
     protected $rules = [
         'title' => 'required|string|',
         'salary' => 'required',
@@ -32,8 +34,32 @@ class CreateVacant extends Component
         'image' => 'required|image|max:1024',
     ];
 
+
     public function createVacant()
     {
+        $messages = [
+            'title.required' => "El campo titulo es requerido",
+            'salary.required' => "El campo salario es requerido",
+            'category.required' => "El campo categoria es requerido",
+            'company.required' => "El campo campañia es requerido",
+            'last_date.required' => "El campo fecha es requerido",
+            'description.required' => "El campo descripción es requerido",
+            'image.required' => "El campo imagen es requerido",
+        ];
+
+        // CAMBIAR EL TEXTO EN INGLES A ESPAÑOL
+        $validator = Validator::make($this->all(), $this->rules, $messages);
+        if ($validator->fails()) {
+            $this->resetErrorBag();
+            foreach ($validator->errors()->messages() as $field => $messages) {
+                foreach ($messages as $message) {
+                    $this->addError($field, $message);
+                }
+            }
+
+            return;
+        }
+
         $data = $this->validate();
 
         // almacenar imagen
@@ -52,6 +78,7 @@ class CreateVacant extends Component
             'image' => $name_image,
             'user_id' => auth()->user()->id,
         ]);
+
         // Crear un mensaje
         session()->flash('message', 'La Vacante se publicó correctamente');
         // Rediccionar al usuario

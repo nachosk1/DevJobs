@@ -3,11 +3,12 @@
 namespace App\Http\Livewire;
 
 use App\Models\Salary;
+use App\Models\Vacant;
 use Livewire\Component;
 use App\Models\Category;
-use App\Models\Vacant;
-use Illuminate\Support\Carbon;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class EditVacant extends Component
 {
@@ -56,7 +57,28 @@ class EditVacant extends Component
     }
 
     public function editVacant(){
-        $data = $this->validate();
+        $messages = [
+            'title.required' => "El campo titulo es requerido",
+            'salary.required' => "El campo salario es requerido",
+            'category.required' => "El campo categoria es requerido",
+            'company.required' => "El campo campañia es requerido",
+            'last_date.required' => "El campo fecha es requerido",
+            'description.required' => "El campo descripción es requerido",
+            'image.required' => "El campo imagen es requerido",
+        ];
+
+        // CAMBIAR EL TEXTO EN INGLES A ESPAÑOL
+        $validator = Validator::make($this->all(), $this->rules, $messages);
+        if ($validator->fails()) {
+            $this->resetErrorBag();
+            foreach ($validator->errors()->messages() as $field => $messages) {
+                foreach ($messages as $message) {
+                    $this->addError($field, $message);
+                }
+            }
+
+            return;
+        }
 
         // Si hay una nueva imagen
         if($this->image_new){

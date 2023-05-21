@@ -37,9 +37,9 @@
         </div>
     @endguest
 
-    @cannot('create', App\Models\Vacant::class)
-        <livewire:postulate-vacant :vacant="$vacant"/>
-    @endcannot
-    
-
+    @auth
+        @cannot('create', App\Models\Vacant::class)
+            <livewire:postulate-vacant :vacant="$vacant" />
+        @endcannot
+    @endauth
 </div>
